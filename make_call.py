@@ -26,18 +26,29 @@ class MakeCalls:
         return response
 
     @staticmethod
-    def fizz_buzz_value(data):
-        message = str(data)
-        data = int(data)
-        if data % 5 == 0 and data % 3 == 0:
-            message = "Fizz, Buzz"
-        elif data % 3 == 0:
-            message =  "Fizz"
-        elif data % 5 == 0:
-            message =  "Buzz"
+    def fizz_or_buzz(data):
 
+        if data % 5 == 0 and data % 3 == 0:
+            return "Fizz, Buzz,"
+        elif data % 3 == 0:
+            return "Fizz,"
+        elif data % 5 == 0:
+            return "Buzz,"
+        else:
+            return str(data)
+
+
+    @staticmethod
+    def fizz_buzz_value(data):
+        message = ""
+        data = int(data)
         response = VoiceResponse()
+
+        for i in range(1, data+1):
+            message += MakeCalls.fizz_or_buzz(i)
+
         response.say(message)
 
         return response
+
 
