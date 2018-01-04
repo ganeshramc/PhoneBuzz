@@ -20,6 +20,8 @@ def yolo(username):
 @app.route('/html_call/', methods=['POST'])
 def main_html_call():
     phno = request.form["phno"]
+    delay = request.form["delay"]
+
     client = Client(account_sid, auth_token)
     call = client.calls.create(to=phno,  # to your cell phone
                                from_="+14086693946",  # from your Twilio phone number
