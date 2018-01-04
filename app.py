@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from make_call import MakeCalls
 # from make_call import VoiceResponse, Gather,
 from twilio.twiml.voice_response import Play, VoiceResponse, Say
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, Dummy!!!!!!!'
+    return render_template('main_page.html')
 
 @app.route('/hello/<username>')
 def yolo(username):
