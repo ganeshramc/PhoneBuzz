@@ -21,6 +21,7 @@ class MakeCalls:
         gather = Gather(action='/process_gather.php', method='GET')
         gather.say("Please enter number followed by pound")
         response.append(gather)
+        response.say(response)
         return response
 
     @staticmethod
