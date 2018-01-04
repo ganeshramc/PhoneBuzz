@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from make_call import MakeCalls
 # from make_call import VoiceResponse, Gather,
+from twilio.rest import Client
 from twilio.twiml.voice_response import Play, VoiceResponse, Say
 
 
@@ -20,7 +21,11 @@ def yolo(username):
 def make_calls():
     if request.method == 'POST':
         phno = request.form["phno"]
-        return str(MakeCalls.play_game(phno))
+        client = Client( make_calls.account_sid, make_calls.auth_token)
+        call = client.calls.create(to=phno,  # to your cell phone
+                                   from_="+14086693946",  # from your Twilio phone number
+                                   url="/call/")
+        return str(MakeCalls.play_game())
 
     return str(MakeCalls.play_game())
 
