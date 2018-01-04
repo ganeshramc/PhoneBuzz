@@ -22,3 +22,8 @@ def print_hello1(username):
 @app.route('/hello/<username>')
 def yolo(username):
     return 'hellooooo '+ username
+
+
+
+if __name__ == "__main__":
+    app.run()
