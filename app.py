@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import request
 from make_call import MakeCalls
+from make_call import VoiceResponse, Gather
+
 
 app = Flask(__name__)
 
@@ -26,7 +28,11 @@ def yolo(username):
 
 @app.route('/make_direct_call/', methods=['GET', 'POST'])
 def make_calls():
-    return MakeCalls.play_game()
+    response = VoiceResponse
+    response.gather()
+
+    return response
+    # return MakeCalls.play_game()
     # return 'Hello'
 
 
