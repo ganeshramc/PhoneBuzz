@@ -18,9 +18,9 @@ class MakeCalls:
     @staticmethod
     def play_game(phone_number=None):
         response = VoiceResponse()
-        if phone_number is not None:
-            dial = Dial()
-            dial.number(phone_number)
+        # if phone_number is not None:
+        #     dial = Dial()
+        #     dial.number(phone_number)
         with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
         return response
