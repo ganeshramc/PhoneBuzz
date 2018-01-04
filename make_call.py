@@ -22,7 +22,7 @@ class MakeCalls:
         # dial.number(phone_number)
         with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
-        response.append(dial)
+        # response.append(dial)
         return response
 
     @staticmethod

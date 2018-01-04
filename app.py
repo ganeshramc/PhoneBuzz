@@ -24,7 +24,7 @@ def make_calls():
         client = Client(account_sid, auth_token)
         call = client.calls.create(to=phno,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
-                                   url="/call/")
+                                   url="https://05b39715.ngrok.io/call/")
 
     return str(MakeCalls.play_game())
 
