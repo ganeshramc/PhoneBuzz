@@ -29,12 +29,7 @@ def yolo(username):
 
 @app.route('/make_direct_call/')
 def make_calls():
-    response = VoiceResponse()
-    response.say(message="Hello Ganesh")
-    response.play('https://api.twilio.com/Cowbell.mp3')
-    return response
-    # return MakeCalls.play_game()
-    # return 'Hello'
+    return MakeCalls.play_game()
 
 
 
