@@ -25,7 +25,6 @@ def make_calls():
         call = client.calls.create(to=phno,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="/call/")
-        return str(MakeCalls.play_game())
 
     return str(MakeCalls.play_game())
 
