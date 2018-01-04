@@ -35,7 +35,7 @@ class MakeCalls:
         elif data % 5 == 0:
             return "Buzz,"
         else:
-            return str(data)
+            return str(data)+","
 
 
     @staticmethod
