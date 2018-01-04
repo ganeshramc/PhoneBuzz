@@ -24,6 +24,7 @@ def main_html_call():
     call = client.calls.create(to=phno,  # to your cell phone
                                from_="+14086693946",  # from your Twilio phone number
                                url="https://05b39715.ngrok.io/call/")
+    return render_template('main_page.html')
 
 @app.route('/call/', methods=['GET','POST'])
 def make_calls():
