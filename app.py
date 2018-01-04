@@ -28,8 +28,8 @@ def yolo(username):
 
 @app.route('/make_direct_call/', methods=['GET', 'POST'])
 def make_calls():
-    response = VoiceResponse
-    response.gather()
+    response = VoiceResponse()
+    response.say(message="Hello Ganesh")
 
     return response
     # return MakeCalls.play_game()
