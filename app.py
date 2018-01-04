@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import request
 from make_call import MakeCalls
-from make_call import VoiceResponse, Gather
+# from make_call import VoiceResponse, Gather
+from twilio.twiml.voice_response import Play, VoiceResponse, Say
 
 
 app = Flask(__name__)
@@ -26,11 +27,11 @@ def yolo(username):
     return 'hellooooo '+ username
 
 
-@app.route('/make_direct_call/', methods=['GET', 'POST'])
+@app.route('/make_direct_call/')
 def make_calls():
     response = VoiceResponse()
     response.say(message="Hello Ganesh")
-
+    response.play('https://api.twilio.com/Cowbell.mp3')
     return response
     # return MakeCalls.play_game()
     # return 'Hello'
