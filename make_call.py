@@ -19,7 +19,7 @@ class MakeCalls:
     def play_game():
         response = VoiceResponse()
 
-        with response.gather(action='/process_gather.php', method='POST') as g:
+        with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
         return response
 
