@@ -21,8 +21,9 @@ class MakeCalls:
         if phone_number is not None:
             dial = Dial()
             dial.number(phone_number)
-        with response.gather(action='/handle_call/', method='POST') as g:
-            g.say("Please enter number followed by pound")
+        # with response.gather(action='/handle_call/', method='POST') as g:
+        #     g.say("Please enter number followed by pound")
+        response.say(phone_number)
         return response
 
     @staticmethod
