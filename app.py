@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-
+from make_call import MakeCalls
 
 app = Flask(__name__)
 
@@ -22,6 +22,12 @@ def print_hello1(username):
 @app.route('/hello/<username>')
 def yolo(username):
     return 'hellooooo '+ username
+
+
+@app.route('/make_direct_call/')
+def make_calls():
+    MakeCalls.play_game()
+    return 'Hello'
 
 
 
