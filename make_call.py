@@ -22,7 +22,7 @@ class MakeCalls:
         # gather.say("Please enter number followed by pound")
         # response.append(gather)
         response.say("Hello")
-        print(response)
+        return response
 
     @staticmethod
     def fizz_buzz_value(data):

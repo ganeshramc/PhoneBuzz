@@ -26,7 +26,7 @@ def yolo(username):
 
 @app.route('/make_direct_call/', methods=['GET', 'POST'])
 def make_calls():
-    MakeCalls.play_game()
+    return MakeCalls.play_game()
     # return 'Hello'
 
 
