@@ -1,5 +1,5 @@
 from twilio.rest import Client
-from twilio.twiml.voice_response import Gather, VoiceResponse, Say
+from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial
 
 # put your own credentials here
 account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
@@ -16,9 +16,11 @@ auth_token  = "290df12e2450cc200d9b1df988731e37"
 class MakeCalls:
 
     @staticmethod
-    def play_game():
+    def play_game(phone_number=None):
         response = VoiceResponse()
-
+        if phone_number is not None:
+            dial = Dial()
+            dial.number(phone_number)
         with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
         return response

@@ -18,6 +18,10 @@ def yolo(username):
 
 @app.route('/call/', methods=['GET','POST'])
 def make_calls():
+    if request.method == 'POST':
+        phno = request.form["phno"]
+        return str(MakeCalls.play_game(phno))
+
     return str(MakeCalls.play_game())
 
 @app.route('/handle_call/', methods=['GET', 'POST'])
