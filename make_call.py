@@ -26,6 +26,7 @@ class MakeCalls:
     @staticmethod
     def fizz_buzz_value(data):
         message = str(data)
+        data = int(data)
         if data % 5 == 0 and data % 3 == 0:
             message = "Fizz, Buzz"
         elif data % 3 == 0:
