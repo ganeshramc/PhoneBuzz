@@ -18,20 +18,23 @@ class MakeCalls:
     @staticmethod
     def play_game():
         response = VoiceResponse()
-        gather = Gather(action='/process_gather.php', method='GET')
-        gather.say("Please enter number followed by pound")
-        response.append(gather)
-        response.say(response)
+
+        with response.gather(action='/process_gather.php', method='POST') as g:
+            g.say("Please enter number followed by pound")
         return response
 
     @staticmethod
     def fizz_buzz_value(data):
+        message = str(data)
         if data % 5 == 0 and data % 3 == 0:
-            return "Fizz, Buzz"
+            message = "Fizz, Buzz"
         elif data % 3 == 0:
-            return "Fizz"
+            message =  "Fizz"
         elif data % 5 == 0:
-            return "Buzz"
-        else:
-            return str(data)
+            message =  "Buzz"
+
+        response = VoiceResponse()
+        response.say(message)
+
+        return response
 
