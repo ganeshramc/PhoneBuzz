@@ -66,7 +66,6 @@ class MakeCalls:
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
         rowid = cur.lastrowid
-        print(rowid)
         conn.commit()
         conn.close()
         t = Timer(delay, MakeCalls.call_phone, (phone,rowid))
