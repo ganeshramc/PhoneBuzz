@@ -98,10 +98,16 @@ def make_calls():
 
 @app.route('/handle_call/', methods=['GET', 'POST'])
 def handle_calls():
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
     digit_pressed = request.values.get('Digits', None)
     print_rows()
-    # row = select_last_row(request.values.get('To', None))
-    # conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
+    row = select_last_row(request.values.get('To', None))
+
+    cur.execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
+    con.commit()
+    con.close()
+
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
 
