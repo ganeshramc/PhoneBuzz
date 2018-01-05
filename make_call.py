@@ -29,6 +29,7 @@ class MakeCalls:
     @staticmethod
     def call_create(phone, delay):
         t = Timer(delay, MakeCalls.call_phone, (phone,))
+        yield True
         t.run()
         # s.enter(delay, 1, MakeCalls.call_phone, argument=(phone,))
 
