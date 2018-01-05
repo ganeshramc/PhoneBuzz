@@ -103,7 +103,6 @@ def handle_calls():
     digit_pressed = request.values.get('Digits', None)
     print_rows()
     print(request.values.get('CallSid'))
-
     row = select_last_row(request.values.get('CallSid', None))
     cur.execute("UPDATE history SET number=? WHERE callsid=?", (digit_pressed, request.values.get('CallSid')))
     con.commit()
