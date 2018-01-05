@@ -3,11 +3,12 @@ from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial, Number
 import time, sched
 from threading import Timer
 s = sched.scheduler(time.time, time.sleep)
+import os
 
 
-# put your own credentials here
-account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
-auth_token  = "290df12e2450cc200d9b1df988731e37"
+# # put your own credentials here
+# account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
+# auth_token  = "290df12e2450cc200d9b1df988731e37"
 
 # # set up a client to talk to the Twilio REST API
 # client = Client(account_sid, auth_token)
@@ -21,7 +22,7 @@ class MakeCalls:
 
     @staticmethod
     def call_phone(phone_number):
-        client = Client(account_sid, auth_token)
+        client = Client(os.environ.get('TWILIO_ACCOUNT_SID'), os.environ.get('TWILIO_AUTH_TOKEN'))
         call = client.calls.create(to=phone_number,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
