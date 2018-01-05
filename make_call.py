@@ -29,6 +29,7 @@ class MakeCalls:
     @staticmethod
     def call_create(phone, delay):
         s.enter(delay, 1, MakeCalls.call_phone, argument=(phone,))
+        s.run()
 
     @staticmethod
     def play_game():
