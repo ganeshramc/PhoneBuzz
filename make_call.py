@@ -1,7 +1,7 @@
 from twilio.rest import Client
 from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial, Number
 import time, sched
-
+from threading import Timer
 s = sched.scheduler(time.time, time.sleep)
 
 
@@ -28,8 +28,10 @@ class MakeCalls:
 
     @staticmethod
     def call_create(phone, delay):
-        s.enter(delay, 1, MakeCalls.call_phone, argument=(phone,))
-        s.run()
+        t = Timer(delay, MakeCalls.call_phone, (phone,))
+        t.run()
+        # s.enter(delay, 1, MakeCalls.call_phone, argument=(phone,))
+
 
     @staticmethod
     def play_game():
