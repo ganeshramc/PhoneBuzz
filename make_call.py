@@ -29,7 +29,7 @@ class MakeCalls:
                 raise e
 
     @staticmethod
-    def call_phone(phone_number, rowid=None):
+    def call_phone(phone_number):
         call = client.calls.create(to=phone_number,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
@@ -43,7 +43,7 @@ class MakeCalls:
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
         rowid = cur.lastrowid
-        t = Timer(delay, MakeCalls.call_phone, (phone, rowid))
+        t = Timer(delay, MakeCalls.call_phone, (phone,))
         t.start()
         return True
 
