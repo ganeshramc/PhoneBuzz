@@ -7,7 +7,7 @@ import sqlite3
 
 
 conn = sqlite3.connect('database.db')
-conn.execute('CREATE TABLE history (phno TEXT, delay INT, number INT)')
+
 
 # put your own credentials here
 # account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
