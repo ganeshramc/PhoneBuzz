@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 conn = sqlite3.connect('database.db')
 conn.execute('DROP TABLE IF EXISTS history')
-conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INT DEFAULT 0, number INT)')
+conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INTEGER DEFAULT 0, number INTEGER DEFAULT 0)')
 
 def validate_twilio_request(f):
     """Validates that incoming requests genuinely originated from Twilio"""
@@ -39,8 +39,7 @@ def select_last_row(phone_number):
     cur = con.cursor()
     cur.execute("SELECT * FROM history WHERE phno=?", (phone_number,))
     rows = cur.fetchall()
-    if rows is None:
-        return rows
+    return rows
     row = rows[-1]
     return row
 
