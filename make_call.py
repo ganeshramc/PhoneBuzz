@@ -43,6 +43,7 @@ class MakeCalls:
         conn = sqlite3.connect('database.db')
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
+        conn.commit()
         conn.close()
         MakeCalls.print_rows()
         t = Timer(delay, MakeCalls.call_phone, (phone,))
