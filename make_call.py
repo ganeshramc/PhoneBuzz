@@ -29,16 +29,21 @@ class MakeCalls:
                 raise e
 
     @staticmethod
-    def call_phone(phone_number):
+    def call_phone(phone_number, rowid=None):
         call = client.calls.create(to=phone_number,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
+
+
 
     @staticmethod
     def call_create(phone, delay):
         if not MakeCalls.verify_phone_number(phone):
             return False
-        t = Timer(delay, MakeCalls.call_phone, (phone,))
+        cur = conn.cursor()
+        cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
+        rowid = cur.lastrowid
+        t = Timer(delay, MakeCalls.call_phone, (phone, rowid))
         t.start()
         return True
 
@@ -49,6 +54,7 @@ class MakeCalls:
         response = VoiceResponse()
         with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
+
         return response
 
     @staticmethod

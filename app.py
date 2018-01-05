@@ -7,7 +7,7 @@ import sqlite3
 app = Flask(__name__)
 
 conn = sqlite3.connect('database.db')
-conn.execute('CREATE TABLE  history (phno TEXT, delay INT, number INT) IF NOT EXISTS')
+conn.execute('CREATE TABLE IF NOT EXISTS history (id INT PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INT DEFAULT 0, number INT) IF NOT EXISTS')
 
 def validate_twilio_request(f):
     """Validates that incoming requests genuinely originated from Twilio"""
@@ -31,6 +31,17 @@ def validate_twilio_request(f):
         else:
             return abort(403)
     return decorated_function
+
+def select_last_row(phone_number):
+    con = sqlite3.connect('database.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("SELECT * WHERE phone_number=?", (phone_number,))
+    rows = cur.fetchall()
+    if rows is None:
+        return rows
+    row = rows[-1]
+    return row
 
 
 @app.route('/')
@@ -72,11 +83,15 @@ def main_html_call():
 def make_calls():
     return str(MakeCalls.play_game())
 
+
 @app.route('/handle_call/', methods=['GET', 'POST'])
 def handle_calls():
     digit_pressed = request.values.get('Digits', None)
-
+    row = select_last_row(request.values.get('From', None))
+    conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row["id"]), digit_pressed))
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
+
+
 
 
 
