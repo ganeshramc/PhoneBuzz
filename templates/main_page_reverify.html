@@ -22,11 +22,14 @@ Delay:<br>
          </thead>
 
          {% for row in rows %}
+            <form action="/handle_table/" method="post" enctype="application/x-www-form-urlencoded">
             <tr>
                <td>{{row["phno"]}}</td>
                <td>{{row["delay"]}}</td>
                <td> {{ row["number"]}}</td>
             </tr>
+                <input type="submit" value="Send">
+            </form>
          {% endfor %}
       </table>
 

@@ -110,6 +110,12 @@ def handle_calls():
 
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
+@app.route('/handle_table/', methods=['POST'])
+def handle_table_input():
+    phno = request.form["phno"]
+    delaymin = int(request.form["delaymin"])
+    digitpressed = int(request.form["number"])
+
 
 
 
