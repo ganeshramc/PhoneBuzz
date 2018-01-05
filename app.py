@@ -21,7 +21,7 @@ def yolo(username):
 @app.route('/html_call/', methods=['POST'])
 def main_html_call():
     phno = request.form["phno"]
-    delay = request.form["delay"]
+    delay = int(request.form["delay"])
     time.sleep(delay)
     client = Client(account_sid, auth_token)
     call = client.calls.create(to=phno,  # to your cell phone
