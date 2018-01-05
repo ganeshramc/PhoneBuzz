@@ -3,6 +3,7 @@ from make_call import MakeCalls, account_sid, auth_token
 # from make_call import VoiceResponse, Gather,
 from twilio.rest import Client
 from twilio.twiml.voice_response import Play, VoiceResponse, Say
+import time
 
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ def yolo(username):
 def main_html_call():
     phno = request.form["phno"]
     delay = request.form["delay"]
-
+    time.sleep(delay)
     client = Client(account_sid, auth_token)
     call = client.calls.create(to=phno,  # to your cell phone
                                from_="+14086693946",  # from your Twilio phone number
