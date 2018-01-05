@@ -35,7 +35,7 @@ class MakeCalls:
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
         conn = sqlite3.connect('database.db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO History(id, callsid) VALUES (?,?)", (rowid, str(call.sid)))
+        cur.execute("UPDATE History SET callsid=? WHERE id=?", (str(call.sid), rowid))
 
 
 
@@ -47,6 +47,7 @@ class MakeCalls:
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
         rowid = cur.lastrowid
+        print(rowid)
         conn.commit()
         conn.close()
         t = Timer(delay, MakeCalls.call_phone, (phone,rowid))
