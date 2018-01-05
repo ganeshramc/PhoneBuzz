@@ -43,11 +43,11 @@ def print_rows():
         print(list(i))
 
 
-def select_last_row(phone_number):
+def select_last_row(callsid):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("SELECT * FROM history WHERE phno=?", (phone_number,))
+    cur.execute("SELECT * FROM history WHERE callsid=?", (callsid,))
     rows = list(cur.fetchall())
 
     for i in range(len(rows)):
@@ -102,8 +102,9 @@ def handle_calls():
     cur = con.cursor()
     digit_pressed = request.values.get('Digits', None)
     print_rows()
-    row = select_last_row(request.values.get('To', None))
     print(request.values.get('CallSid'))
+
+    row = select_last_row(request.values.get('CallSid', None))
     cur.execute("UPDATE history SET number=? WHERE callsid=?", (digit_pressed, request.values.get('CallSid')))
     con.commit()
     con.close()
