@@ -36,6 +36,8 @@ class MakeCalls:
         conn = sqlite3.connect('database.db')
         cur = conn.cursor()
         cur.execute("UPDATE History SET callsid=? WHERE id=?", (str(call.sid), rowid))
+        conn.commit()
+        conn.close()
 
 
 
