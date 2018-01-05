@@ -19,6 +19,7 @@ Delay:<br>
 <H3>History of Calls</H3>
 <table border = 1>
          <thead>
+            <td>No.</td>
             <td>Phone Number</td>
             <td>Delay</td>
             <td>Number Entered</td>
@@ -26,6 +27,7 @@ Delay:<br>
 
          {% for row in rows %}
             <tr>
+                <td>{{row[0]}}</td>
                <td>{{row[1]}}</td>
                <td>{{row[2]}}</td>
                <td> {{ row[3]}}</td>
