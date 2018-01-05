@@ -89,8 +89,9 @@ def make_calls():
 @app.route('/handle_call/', methods=['GET', 'POST'])
 def handle_calls():
     digit_pressed = request.values.get('Digits', None)
-    row = select_last_row(request.values.get('From', None))
-    conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
+    fromnumber = request.values.get('From', None)
+    print(fromnumber)
+    # conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
 
