@@ -33,6 +33,16 @@ def validate_twilio_request(f):
             return abort(403)
     return decorated_function
 
+def print_rows():
+    con = sqlite3.connect('database.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM history")
+    rows = list(cur.fetchall())
+    for i in rows:
+        print(list(i))
+
+
 def select_last_row(phone_number):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
@@ -89,8 +99,9 @@ def make_calls():
 @app.route('/handle_call/', methods=['GET', 'POST'])
 def handle_calls():
     digit_pressed = request.values.get('Digits', None)
-    row = select_last_row(request.values.get('To', None))
-    conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
+    print_rows()
+    # row = select_last_row(request.values.get('To', None))
+    # conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
 
