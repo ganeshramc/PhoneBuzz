@@ -19,7 +19,7 @@ Two ways to play the game:
 2) Activate virtualenv by goin to the root folder of the game and typing the command source venv/bin/activate
 3) Set up your own environment variables for twilio credentials. This is very important You would perform the following commands in the terminal:
 ..1) `export TWILIO_AUTH_TOKEN='YOUR TWILIO AUTHENTICATION TOKEN'`
-..2) `export TWILIO_ACCOUNT_SID='YOUR TWILIO AACCOUNT SID'`
+..2) `export TWILIO_ACCOUNT_SID='YOUR TWILIO ACCOUNT SID'`
 4) You can run it on localhost with the command `python app.py`
 5) You might also want to host your app on a server using services like Heroku, AWS or ngrok...
 6) Enjoy!
