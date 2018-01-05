@@ -36,6 +36,11 @@ def validate_twilio_request(f):
 
 
 def check_for_row(callsid):
+    """
+    Check if entry exists in database
+    :param callsid: unique sid of call
+    :return: If exists
+    """
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
@@ -50,6 +55,10 @@ def check_for_row(callsid):
 
 @app.route('/')
 def hello_world():
+    """
+    Main home page
+    :return: home page
+    """
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
 
@@ -59,13 +68,12 @@ def hello_world():
     rows = cur.fetchall()
     return render_template('main_page.html', rows=rows)
 
-@app.route('/hello/<username>')
-def yolo(username):
-    return 'hellooooo '+ username
-
-
 @app.route('/html_call/', methods=['POST'])
 def main_html_call():
+    """
+    Main html call when data is entered through homepage
+    :return: homepage
+    """
     phno = request.form["phno"]
     delaymin = int(request.form["delaymin"])
     delay = int(request.form["delay"]) + delaymin*60
@@ -85,11 +93,19 @@ def main_html_call():
 @app.route('/call/', methods=['GET','POST'])
 @validate_twilio_request
 def make_calls():
+    """
+    Making the actual call
+    :return: Call response
+    """
     return str(MakeCalls.play_game())
 
 
 @app.route('/handle_call/', methods=['GET', 'POST'])
 def handle_calls():
+    """
+    Handling digit entered during call
+    :return: Fizz Buzz Response
+    """
     con = sqlite3.connect('database.db')
     cur = con.cursor()
     digit_pressed = request.values.get('Digits', None)
@@ -106,9 +122,5 @@ def handle_calls():
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
 
-
-
-
 if __name__ == "__main__":
     app.run()
-    # print(select_last_row(12233))
