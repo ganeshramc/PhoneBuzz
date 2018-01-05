@@ -37,7 +37,6 @@ def select_last_row(phone_number):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("INSERT INTO history (phno, delay) VALUES ('9494197775', 5)")
     cur.execute("SELECT * FROM history WHERE phno=?", (phone_number,))
     rows = list(cur.fetchall())
 
