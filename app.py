@@ -110,5 +110,5 @@ def handle_calls():
 
 
 if __name__ == "__main__":
-    # app.run()
-    print(select_last_row(12233))
+    app.run()
+    # print(select_last_row(12233))
