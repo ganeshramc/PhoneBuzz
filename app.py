@@ -37,11 +37,14 @@ def select_last_row(phone_number):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
+    cur.execute("INSERT INTO history (phno, delay) VALUES ('9494197775', 5)")
     cur.execute("SELECT * FROM history WHERE phno=?", (phone_number,))
-    rows = cur.fetchall()
-    return rows
-    row = rows[-1]
-    return row
+    rows = list(cur.fetchall())
+
+    for i in range(len(rows)):
+        rows[i] = list(rows[i])
+
+    return rows[-1]
 
 
 @app.route('/')
@@ -88,7 +91,7 @@ def make_calls():
 def handle_calls():
     digit_pressed = request.values.get('Digits', None)
     row = select_last_row(request.values.get('From', None))
-    conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row["id"]), digit_pressed))
+    conn.cursor().execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
 
 
