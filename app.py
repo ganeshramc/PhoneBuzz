@@ -17,7 +17,8 @@ def yolo(username):
 @app.route('/html_call/', methods=['POST'])
 def main_html_call():
     phno = request.form["phno"]
-    delay = int(request.form["delay"])
+    delaymin = int(request.form["delaymin"])
+    delay = int(request.form["delay"]) + delaymin*60
     MakeCalls.call_create(phno, delay)
     return redirect('/')
 

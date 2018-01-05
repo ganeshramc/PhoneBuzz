@@ -2,16 +2,19 @@
 <html>
 <body>
 
-<h2>Send e-mail to someone@example.com:</h2>
+<h2>Welcome to Phone Buzz</h2>
+<h3>Input your number and the number of seconds you want the call after</h3>
 
 <form action="/html_call/" method="post" enctype="application/x-www-form-urlencoded">
 Phone Number:<br>
 <input type="text" name="phno"><br>
 Delay:<br>
-<input type="number" name="delay"> seconds <br>
+    <input type="number" name="delaymin" value="0" min="0" step="1"> minutes
+    <input type="number" name="delay" value="0" min="0" step="1"> seconds <br>
 <input type="submit" value="Send">
 <input type="reset" value="Reset">
 </form>
 
+<h4>If you want to call directly, please call +1(408)669-3946</h4>
 </body>
 </html>
