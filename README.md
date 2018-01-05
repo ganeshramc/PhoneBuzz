@@ -11,15 +11,15 @@ For example, a typical round of fizz buzz would start as follows:
 
 ## Play the game
 Two ways to play the game:
-1) To receive a call visit (https://phone-fizz-buzz.herokuapp.com/) 
-2) Call +1 (408) 669-3946
+* To receive a call visit (https://phone-fizz-buzz.herokuapp.com/) 
+* Call +1 (408) 669-3946
  
 ## To set up game for yourself
-1) Clone the repository
-2) Activate virtualenv by going to the root folder of the game and typing the command source venv/bin/activate
-3) Set up your own environment variables for twilio credentials. This is very important You would perform the following commands in the terminal:
-..1) `export TWILIO_AUTH_TOKEN='YOUR TWILIO AUTHENTICATION TOKEN'`
-..2) `export TWILIO_ACCOUNT_SID='YOUR TWILIO ACCOUNT SID'`
-4) You can run it on localhost with the command `python app.py`
-5) You might also want to host your app on a server using services like Heroku, AWS or ngrok...
-6) Enjoy!
+1. Clone the repository
+2. Activate virtualenv by going to the root folder of the game and typing the command source venv/bin/activate
+3. Set up your own environment variables for twilio credentials. This is very important!!! You would perform the following commands in the terminal:
+..1. `export TWILIO_AUTH_TOKEN='YOUR TWILIO AUTHENTICATION TOKEN'`
+..2. `export TWILIO_ACCOUNT_SID='YOUR TWILIO ACCOUNT SID'`
+4. You can run it on localhost with the command `python app.py`
+5. You might also want to host your app on a server using services like Heroku, AWS or ngrok...
+6. Enjoy!
