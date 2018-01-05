@@ -3,13 +3,13 @@ from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial, Number
 from twilio.base.exceptions import TwilioRestException
 import time, sched
 from threading import Timer
-
+from credentials import *
 s = sched.scheduler(time.time, time.sleep)
 
 
 # put your own credentials here
-account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
-auth_token  = "290df12e2450cc200d9b1df988731e37"
+# account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
+# auth_token  = "290df12e2450cc200d9b1df988731e37"
 
 client = Client(account_sid, auth_token)
 
