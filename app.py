@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, abort
 from make_call import MakeCalls, auth_token
 from functools import wraps
 from twilio.request_validator import RequestValidator
-import os
+import sqlite3
 
 app = Flask(__name__)
 
@@ -33,6 +33,13 @@ def validate_twilio_request(f):
 
 @app.route('/')
 def hello_world():
+    con = sqlite3.connect('databse.db')
+    con.row_factory = sqlite3.Row
+
+    cur = con.cursor()
+    cur.execute("select * from students")
+
+    rows = cur.fetchall()
     return render_template('main_page.html')
 
 @app.route('/hello/<username>')

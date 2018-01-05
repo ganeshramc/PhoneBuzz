@@ -1,4 +1,4 @@
-
+<!doctype html>
 <html>
 <body>
 
@@ -14,6 +14,21 @@ Delay:<br>
 <input type="submit" value="Send">
 <input type="reset" value="Reset">
 </form>
+<table border = 1>
+         <thead>
+            <td>Phone Number</td>
+            <td>Delay</td>
+            <td>Number Entered</td>
+         </thead>
+
+         {% for row in rows %}
+            <tr>
+               <td>{{row["phno"]}}</td>
+               <td>{{row["delay"]}}</td>
+               <td> {{ row["number"]}}</td>
+            </tr>
+         {% endfor %}
+      </table>
 
 <h4>If you want to call directly, please call +1(408)669-3946</h4>
 </body>
