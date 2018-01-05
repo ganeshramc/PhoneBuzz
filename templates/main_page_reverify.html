@@ -14,6 +14,9 @@ Delay:<br>
 <input type="submit" value="Send">
 <input type="reset" value="Reset">
 </form>
+<br>
+<br>
+<H3>History of Calls</H3>
 <table border = 1>
          <thead>
             <td>Phone Number</td>
@@ -22,18 +25,13 @@ Delay:<br>
          </thead>
 
          {% for row in rows %}
-            <form action="/handle_table/" method="post" enctype="application/x-www-form-urlencoded">
             <tr>
-               <td>{{row["phno"]}}</td>
-               <td>{{row["delay"]}}</td>
-               <td> {{ row["number"]}}</td>
-                <td><input type="submit" value="Send"></td>
+               <td>{{row[1]}}</td>
+               <td>{{row[2]}}</td>
+               <td> {{ row[3]}}</td>
             </tr>
-
-            </form>
          {% endfor %}
       </table>
-
-<h4>If you want to call directly, please call +1(408)669-3946</h4>
+<h4>If you want to call directly and play, please call +1(408)669-3946</h4>
 </body>
 </html>

@@ -33,27 +33,19 @@ def validate_twilio_request(f):
             return abort(403)
     return decorated_function
 
-def print_rows():
-    con = sqlite3.connect('database.db')
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM history")
-    rows = list(cur.fetchall())
-    for i in rows:
-        print(list(i))
 
 
-def select_last_row(callsid):
+def check_for_row(callsid):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM history WHERE callsid=?", (callsid,))
     rows = list(cur.fetchall())
 
-    for i in range(len(rows)):
-        rows[i] = list(rows[i])
-
-    return rows[-1]
+    if len(rows) == 0:
+        return False
+    else:
+        return True
 
 
 @app.route('/')
@@ -101,24 +93,22 @@ def handle_calls():
     con = sqlite3.connect('database.db')
     cur = con.cursor()
     digit_pressed = request.values.get('Digits', None)
-    print_rows()
-    print(request.values.get('CallSid'))
-    row = select_last_row(request.values.get('CallSid', None))
-    cur.execute("UPDATE history SET number=? WHERE callsid=?", (digit_pressed, request.values.get('CallSid')))
+    callsid = request.values.get('CallSid')
+    callsid_exists = check_for_row(callsid)
+    if callsid_exists:
+        cur.execute("UPDATE history SET number=? WHERE callsid=?", (digit_pressed, callsid))
+    else:
+        cur.execute("INSERT INTO HISTORY(phno, delay, number, callsid) VALUES(?,?,?,?)",
+                    (request.values.get('From'), 0, digit_pressed, callsid))
     con.commit()
     con.close()
 
     return str(MakeCalls.fizz_buzz_value(digit_pressed))
-
-@app.route('/handle_table/', methods=['POST'])
-def handle_table_input():
-    phno = request.form["phno"]
-    delaymin = int(request.form["delaymin"])
-    digitpressed = int(request.form["number"])
 
 
 
 
 
 if __name__ == "__main__":
-    app.run()
+    # app.run()
+    print(select_last_row(12233))
