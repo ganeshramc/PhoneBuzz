@@ -29,10 +29,13 @@ class MakeCalls:
                 raise e
 
     @staticmethod
-    def call_phone(phone_number):
+    def call_phone(phone_number, rowid):
         call = client.calls.create(to=phone_number,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
+        conn = sqlite3.connect('database.db')
+        cur = conn.cursor()
+        cur.execute("INSERT INTO History(id, callsid) VALUES (?,?)", (rowid, str(call.sid)))
 
 
 
@@ -43,10 +46,10 @@ class MakeCalls:
         conn = sqlite3.connect('database.db')
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
+        rowid = cur.lastrowid
         conn.commit()
         conn.close()
-        MakeCalls.print_rows()
-        t = Timer(delay, MakeCalls.call_phone, (phone,))
+        t = Timer(delay, MakeCalls.call_phone, (phone,rowid))
         t.start()
         return True
 
@@ -86,14 +89,5 @@ class MakeCalls:
 
         return response
 
-    @staticmethod
-    def print_rows():
-        con = sqlite3.connect('database.db')
-        con.row_factory = sqlite3.Row
-        cur = con.cursor()
-        cur.execute("SELECT * FROM history")
-        rows = list(cur.fetchall())
-        for i in rows:
-            print(list(i))
 
 

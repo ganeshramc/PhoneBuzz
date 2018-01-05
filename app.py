@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 conn = sqlite3.connect('database.db')
 conn.execute('DROP TABLE IF EXISTS history')
-conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INTEGER DEFAULT 0, number INTEGER DEFAULT 0)')
+conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INTEGER DEFAULT 0, number INTEGER DEFAULT 0, callsid TEXT)')
 
 def validate_twilio_request(f):
     """Validates that incoming requests genuinely originated from Twilio"""
@@ -103,8 +103,8 @@ def handle_calls():
     digit_pressed = request.values.get('Digits', None)
     print_rows()
     row = select_last_row(request.values.get('To', None))
-
-    cur.execute("INSERT INTO History (ID, number) VALUES (?,?)", (int(row[0]), digit_pressed))
+    print(request.values.get('CallSid'))
+    cur.execute("UPDATE history SET number=? WHERE callsid=?", (digit_pressed, request.values.get('CallSid')))
     con.commit()
     con.close()
 
