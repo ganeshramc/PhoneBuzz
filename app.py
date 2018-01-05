@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, abort
-from make_call import MakeCalls
+from make_call import MakeCalls, auth_token
 from functools import wraps
 from twilio.request_validator import RequestValidator
 import os
@@ -12,7 +12,7 @@ def validate_twilio_request(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # Create an instance of the RequestValidator class
-        validator = RequestValidator(os.environ.get('TWILIO_AUTH_TOKEN'))
+        validator = RequestValidator(auth_token)
 
 
         # Validate the request using its URL, POST data,
