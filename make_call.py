@@ -1,7 +1,9 @@
 from twilio.rest import Client
 from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial, Number
+from twilio.base.exceptions import TwilioRestException
 import time, sched
 from threading import Timer
+
 s = sched.scheduler(time.time, time.sleep)
 
 
@@ -9,20 +11,35 @@ s = sched.scheduler(time.time, time.sleep)
 account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
 auth_token  = "290df12e2450cc200d9b1df988731e37"
 
+client = Client(account_sid, auth_token)
 
 class MakeCalls:
 
     @staticmethod
+    def verify_phone_number(phone_number):
+        try:
+            response = client.lookups.phone_numbers(phone_number).fetch(type="carrier")
+            return True
+        except TwilioRestException as e:
+            if e.code == 20404:
+                return False
+            else:
+                raise e
+
+    @staticmethod
     def call_phone(phone_number):
-        client = Client(account_sid, auth_token)
         call = client.calls.create(to=phone_number,  # to your cell phone
                                    from_="+14086693946",  # from your Twilio phone number
                                    url="https://phone-fizz-buzz.herokuapp.com/call/")
 
     @staticmethod
     def call_create(phone, delay):
+        if not MakeCalls.verify_phone_number(phone):
+            return False
         t = Timer(delay, MakeCalls.call_phone, (phone,))
         t.start()
+        return True
+
 
 
     @staticmethod

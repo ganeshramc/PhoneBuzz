@@ -45,7 +45,9 @@ def main_html_call():
     phno = request.form["phno"]
     delaymin = int(request.form["delaymin"])
     delay = int(request.form["delay"]) + delaymin*60
-    MakeCalls.call_create(phno, delay)
+    call = MakeCalls.call_create(phno, delay)
+    if not call:
+        return render_template('main_page_reverify.html')
     return redirect('/')
 
 
