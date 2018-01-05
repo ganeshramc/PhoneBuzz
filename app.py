@@ -37,7 +37,7 @@ def select_last_row(phone_number):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("SELECT * FROM history WHERE phone_number=?", (phone_number,))
+    cur.execute("SELECT * FROM history WHERE phno=?", (phone_number,))
     rows = cur.fetchall()
     if rows is None:
         return rows
