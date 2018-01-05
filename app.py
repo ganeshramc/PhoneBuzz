@@ -7,7 +7,8 @@ import sqlite3
 app = Flask(__name__)
 
 conn = sqlite3.connect('database.db')
-conn.execute('CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INT DEFAULT 0, number INT) IF NOT EXISTS')
+conn.execute('drop table if exists history')
+conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INT DEFAULT 0, number INT) IF NOT EXISTS')
 
 def validate_twilio_request(f):
     """Validates that incoming requests genuinely originated from Twilio"""
