@@ -1,9 +1,8 @@
 from flask import Flask, request, render_template
-from make_call import MakeCalls, account_sid, auth_token
+from make_call import MakeCalls
 # from make_call import VoiceResponse, Gather,
 from twilio.rest import Client
 from twilio.twiml.voice_response import Play, VoiceResponse, Say
-import time
 
 
 app = Flask(__name__)
@@ -22,13 +21,9 @@ def yolo(username):
 def main_html_call():
     phno = request.form["phno"]
     delay = int(request.form["delay"])
-    time.sleep(delay)
-    client = Client(account_sid, auth_token)
-    call = client.calls.create(to=phno,  # to your cell phone
-                               from_="+14086693946",  # from your Twilio phone number
-                               url="https://phone-fizz-buzz.herokuapp.com/call/")
-
+    MakeCalls.call_create(phno, delay)
     return render_template('main_page.html')
+
 
 @app.route('/call/', methods=['GET','POST'])
 def make_calls():

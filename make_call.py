@@ -1,5 +1,9 @@
 from twilio.rest import Client
 from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial, Number
+import time, sched
+
+s = sched.scheduler(time.time, time.sleep)
+
 
 # put your own credentials here
 account_sid = "AC0dbebc41c0d4125a118b5f5958fc3c81"
@@ -16,13 +20,21 @@ auth_token  = "290df12e2450cc200d9b1df988731e37"
 class MakeCalls:
 
     @staticmethod
-    def play_game(phone_number=None):
+    def call_phone(phone_number):
+        client = Client(account_sid, auth_token)
+        call = client.calls.create(to=phone_number,  # to your cell phone
+                                   from_="+14086693946",  # from your Twilio phone number
+                                   url="https://phone-fizz-buzz.herokuapp.com/call/")
+
+    @staticmethod
+    def call_create(phone, delay):
+        s.enter(delay, 1, MakeCalls.call_phone, argument=(phone,))
+
+    @staticmethod
+    def play_game():
         response = VoiceResponse()
-        # dial = Dial()
-        # dial.number(phone_number)
         with response.gather(action='/handle_call/', method='POST') as g:
             g.say("Please enter number followed by pound")
-        # response.append(dial)
         return response
 
     @staticmethod
