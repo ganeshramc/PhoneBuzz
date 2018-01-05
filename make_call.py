@@ -6,7 +6,7 @@ from credentials import *
 import sqlite3
 
 
-conn = sqlite3.connect('database.db')
+
 
 
 # put your own credentials here
@@ -40,9 +40,10 @@ class MakeCalls:
     def call_create(phone, delay):
         if not MakeCalls.verify_phone_number(phone):
             return False
+        conn = sqlite3.connect('database.db')
         cur = conn.cursor()
         cur.execute("INSERT INTO History (phno, delay) VALUES (?,?)", (phone, delay))
-        rowid = cur.lastrowid
+        MakeCalls.print_rows()
         t = Timer(delay, MakeCalls.call_phone, (phone,))
         t.start()
         return True
@@ -82,5 +83,15 @@ class MakeCalls:
         response.say(message)
 
         return response
+
+    @staticmethod
+    def print_rows():
+        con = sqlite3.connect('database.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute("SELECT * FROM history")
+        rows = list(cur.fetchall())
+        for i in rows:
+            print(list(i))
 
 
