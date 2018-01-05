@@ -7,7 +7,7 @@ import sqlite3
 app = Flask(__name__)
 
 conn = sqlite3.connect('database.db')
-conn.execute('drop table history')
+conn.execute('DROP TABLE IF EXISTS history')
 conn.execute('CREATE TABLE history (id INTEGER PRIMARY KEY AUTOINCREMENT, phno TEXT, delay INT DEFAULT 0, number INT)')
 
 def validate_twilio_request(f):
