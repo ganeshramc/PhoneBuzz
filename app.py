@@ -33,14 +33,14 @@ def validate_twilio_request(f):
 
 @app.route('/')
 def hello_world():
-    con = sqlite3.connect('databse.db')
+    con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
     cur.execute("select * from students")
 
     rows = cur.fetchall()
-    return render_template('main_page.html')
+    return render_template('main_page.html', rows=rows)
 
 @app.route('/hello/<username>')
 def yolo(username):
@@ -54,7 +54,14 @@ def main_html_call():
     delay = int(request.form["delay"]) + delaymin*60
     call = MakeCalls.call_create(phno, delay)
     if not call:
-        return render_template('main_page_reverify.html')
+        con = sqlite3.connect('database.db')
+        con.row_factory = sqlite3.Row
+
+        cur = con.cursor()
+        cur.execute("select * from students")
+
+        rows = cur.fetchall()
+        return render_template('main_page_reverify.html', rows=rows)
     return redirect('/')
 
 
