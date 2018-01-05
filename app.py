@@ -1,8 +1,5 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from make_call import MakeCalls
-# from make_call import VoiceResponse, Gather,
-from twilio.rest import Client
-from twilio.twiml.voice_response import Play, VoiceResponse, Say
 
 
 app = Flask(__name__)
@@ -22,7 +19,7 @@ def main_html_call():
     phno = request.form["phno"]
     delay = int(request.form["delay"])
     MakeCalls.call_create(phno, delay)
-    return render_template('main_page.html')
+    return redirect('/')
 
 
 @app.route('/call/', methods=['GET','POST'])
