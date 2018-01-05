@@ -51,7 +51,7 @@ def hello_world():
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
-    cur.execute("select * from students")
+    cur.execute("select * from history")
 
     rows = cur.fetchall()
     return render_template('main_page.html', rows=rows)
@@ -72,7 +72,7 @@ def main_html_call():
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute("select * from students")
+        cur.execute("select * from history")
 
         rows = cur.fetchall()
         return render_template('main_page_reverify.html', rows=rows)
