@@ -1,4 +1,4 @@
-from actual_credentials import * # remove this when you clone the repository
+import os
 
-account_sid = twilio_credentials["account_sid"]  # replace this with your twilio account_sid
-auth_token  = twilio_credentials["auth_token"]   # replace this with your twilio auth token
+account_sid = os.environ("TWILIO_ACCOUNT_SID")  # replace this with your twilio account_sid
+auth_token  = os.environ("TWILIO_AUTH_TOKEN")  # replace this with your twilio auth token
